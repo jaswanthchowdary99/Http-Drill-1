@@ -2,7 +2,6 @@ const http = require('http');
 const fs = require('fs');
 const {v4 : uuidv4} = require('uuid');
 const { setTimeout } = require('timers');
-const { json } = require('express');
 
 
 const server =  http.createServer((request,resolve)=>{
@@ -46,7 +45,7 @@ const server =  http.createServer((request,resolve)=>{
     const delayTime = parseInt(request.url.split('/')[2]);
     setTimeout(()=>{
       resolve.writeHead(200,{'Content-Type':'text/plain'})
-      resolve.end(JSON.stringify(`success after delay time ${delayTime} seconds`))
+      resolve.end(`success after delay time ${delayTime} seconds`)
     },delayTime*1000)
   }
 
@@ -54,7 +53,7 @@ const server =  http.createServer((request,resolve)=>{
     const statusUrl = parseInt(request.url.split('/')[2]);
     const statusText = http.STATUS_CODES[statusUrl] || 'Unknown Status';
     resolve.writeHead(statusUrl,{'Content-Type':'text/plain'});
-    resolve.end(JSON.stringify(`Response with status code : ${statusUrl} = ${statusText}`));
+    resolve.end(`Response with status code : ${statusUrl} = ${statusText}`);
   }
  
   else{
